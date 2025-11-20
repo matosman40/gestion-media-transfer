@@ -1,0 +1,97 @@
+{
+  "Name": "Media Storage Transfer",
+  "Author": "Mathieu Renaud",
+  "Version": "0.1",
+  "Desc": "Manage and transfer movies/series from Radarr/Sonarr to external drives with a web interface",
+  "Category": "Media",
+  "AppType": "Docker",
+  "Docker": {
+    "Image": "matosman40/gestion-media-transfer:0.1",
+    "Ports": [
+      {
+        "ContainerPort": 8888,
+        "Protocol": "TCP",
+        "Description": "Web interface port"
+      }
+    ],
+    "Env": [
+      {
+        "Name": "RADARR_URL",
+        "Desc": "URL of Radarr",
+        "Type": "string",
+        "Value": "http://192.168.1.56:7878"
+      },
+      {
+        "Name": "RADARR_APIKEY",
+        "Desc": "API Key Radarr",
+        "Type": "string",
+        "Value": "2fa890fe11424458a1eb5d82f858087a"
+      },
+      {
+        "Name": "SONARR_URL",
+        "Desc": "URL of Sonarr",
+        "Type": "string",
+        "Value": "http://192.168.1.56:8989"
+      },
+      {
+        "Name": "SONARR_APIKEY",
+        "Desc": "API Key Sonarr",
+        "Type": "string",
+        "Value": "0f614150e3274e6ba84123550dca41a6"
+      },
+      {
+        "Name": "PLEX_URL",
+        "Desc": "URL of Plex",
+        "Type": "string",
+        "Value": "http://192.168.1.56:32400"
+      },
+      {
+        "Name": "PLEX_TOKEN",
+        "Desc": "Plex token",
+        "Type": "string",
+        "Value": "z-EW9bRT5CN3ceP4V1PU"
+      },
+      {
+        "Name": "EXTERNAL_DRIVES",
+        "Desc": "Comma-separated list of mount points for external drives",
+        "Type": "string",
+        "Value": "/mnt/drive1,/mnt/drive2"
+      },
+      {
+        "Name": "TRANSFER_MODE",
+        "Desc": "Choose 'copy' or 'move' when transferring files",
+        "Type": "string",
+        "Value": "move"
+      },
+      {
+        "Name": "WEB_USER",
+        "Desc": "Username for web interface",
+        "Type": "string",
+        "Value": "admin"
+      },
+      {
+        "Name": "WEB_PASSWORD",
+        "Desc": "Password for web interface",
+        "Type": "string",
+        "Value": "admin"
+      }
+    ],
+    "Volumes": [
+      {
+        "ContainerPath": "/app/data",
+        "HostPath": "/mnt/data",
+        "ReadOnly": false
+      },
+      {
+        "ContainerPath": "/media",
+        "HostPath": "/mnt/media",
+        "ReadOnly": false
+      }
+    ]
+  },
+  "UI": {
+    "Icon": "https://raw.githubusercontent.com/matosman40/gestion-media-transfer/main/icon.png",
+    "StartCmd": "python3 main.py",
+    "OpenURL": "http://localhost:8888"
+  }
+}
