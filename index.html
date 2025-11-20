@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>Gestion Media</title>
+</head>
+<body>
+    <h2>🎬 Films Radarr</h2>
+    <form method="POST" action="/transfer">
+        {% for m in movies %}
+            <label>
+                <input type="radio" name="path" value="{{ m.path }}">
+                {{ m.title }} ({{ m.year }})
+            </label>
+            <br>
+        {% endfor %}
+        <button type="submit">Copier vers Disque externe</button>
+    </form>
+
+    <hr>
+    <h2>📺 Séries Sonarr</h2>
+    <form method="POST" action="/transfer">
+        {% for s in series %}
+            <label>
+                <input type="radio" name="path" value="{{ s.path }}">
+                {{ s.title }}
+            </label>
+            <br>
+        {% endfor %}
+        <button type="submit">Copier vers Disque externe</button>
+    </form>
+</body>
+</html>
